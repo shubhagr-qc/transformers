@@ -167,6 +167,7 @@ from .utils import (
     is_torch_neuroncore_available,
     is_torch_npu_available,
     is_torch_optimi_available,
+    is_torch_qaic_available,
     is_torch_xla_available,
     is_torchao_available,
     logging,
@@ -3067,6 +3068,8 @@ class Trainer:
             set_rng_state_for_device("MLU", torch.mlu, checkpoint_rng_state, is_distributed)
         if is_torch_musa_available():
             set_rng_state_for_device("MUSA", torch.musa, checkpoint_rng_state, is_distributed)
+        if is_torch_qaic_available():
+            set_rng_state_for_device("QAIC", torch.qaic, checkpoint_rng_state, is_distributed)
 
     def _determine_best_metric(self, metrics, trial):
         """
@@ -3206,6 +3209,12 @@ class Trainer:
                 rng_states["musa"] = torch.musa.get_rng_state_all()
             else:
                 rng_states["musa"] = torch.musa.get_rng_state()
+
+        if is_torch_qaic_available():
+            if self.args.parallel_mode == ParallelMode.DISTRIBUTED:
+                rng_states["qaic"] = torch.qaic.get_rng_state_all()
+            else:
+                rng_states["qaic"] = torch.qaic.get_rng_state()
 
         # A process can arrive here before the process 0 has a chance to save the model, in which case output_dir may
         # not yet exist.

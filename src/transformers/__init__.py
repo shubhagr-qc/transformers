@@ -238,6 +238,7 @@ _import_structure = {
         "is_torch_musa_available",
         "is_torch_neuroncore_available",
         "is_torch_npu_available",
+        "is_torch_qaic_available",
         "is_torchvision_available",
         "is_torch_xla_available",
         "is_torch_xpu_available",
@@ -766,6 +767,7 @@ if TYPE_CHECKING:
     from .utils import is_torch_musa_available as is_torch_musa_available
     from .utils import is_torch_neuroncore_available as is_torch_neuroncore_available
     from .utils import is_torch_npu_available as is_torch_npu_available
+    from .utils import is_torch_qaic_available as is_torch_qaic_available
     from .utils import is_torch_xla_available as is_torch_xla_available
     from .utils import is_torch_xpu_available as is_torch_xpu_available
     from .utils.import_utils import requires_backends

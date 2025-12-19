@@ -225,6 +225,7 @@ from .import_utils import (
     is_torch_neuroncore_available,
     is_torch_npu_available,
     is_torch_optimi_available,
+    is_torch_qaic_available,
     is_torch_tensorrt_fx_available,
     is_torch_tf32_available,
     is_torch_xla_available,
@@ -326,5 +327,8 @@ def get_available_devices() -> frozenset[str]:
 
     if is_torch_musa_available():
         devices.add("musa")
+
+    if is_torch_qaic_available():
+        devices.add("qaic")
 
     return frozenset(devices)
